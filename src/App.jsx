@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 // SUPPLIER LABELS
 // ─────────────────────────────────────────────────────────────
 const SL = {
-  TP:"Taylor Produce", S:"Sysco", B:"Brakes", AFS:"AFS",
+  TP:"Taylor Produce", S:"Brakes", B:"Booker", AFS:"AFS",
   CM:"CM", WF:"WF", AC:"AC", Envior:"Envior", FEO:"Far East Oriental"
 };
 
