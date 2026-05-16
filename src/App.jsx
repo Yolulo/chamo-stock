@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 
 // ─────────────────────────────────────────────────────────────
 // SUPPLIER LABELS
@@ -420,55 +420,63 @@ export default function ChamoStock() {
   const avgDishCost = dishData.reduce((s,d) => s+(d.total||0), 0) / totalDishes;
   const missingCount = dishData.filter(d => d.hasNull).length;
 
-  // Tab styles
-  const tabs = [["costs","🍽 Dish Costs"],["supplier","🛒 Supplier"],["batch","📋 Batch Costs"],["planner","📅 Prep Planner"]];
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 768);
+  useEffect(() => {
+    const fn = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", fn);
+    return () => window.removeEventListener("resize", fn);
+  }, []);
+
+  const tabs = [["costs","🍽","Dish Costs"],["supplier","🛒","Supplier"],["batch","📋","Batches"],["planner","📅","Planner"]];
 
   return (
-    <div style={{fontFamily:"'DM Sans', system-ui, sans-serif", background:"#0e0e0e", minHeight:"100vh", color:"#e8e2d9"}}>
+    <div style={{fontFamily:"'DM Sans', system-ui, sans-serif", background:"#0e0e0e", minHeight:"100vh", color:"#e8e2d9", paddingBottom: isMobile ? 68 : 0}}>
       {/* HEADER */}
-      <div style={{background:"#141414", borderBottom:"1px solid #2a2218", padding:"0 32px"}}>
-        <div style={{maxWidth:1300, margin:"0 auto", display:"flex", alignItems:"center", justifyContent:"space-between", height:64}}>
-          <div style={{display:"flex",alignItems:"center",gap:16}}>
-            <div style={{fontWeight:800, fontSize:24, letterSpacing:3, color:"#f5a623"}}>CHAMO</div>
-            <div style={{width:1, height:24, background:"#333"}}/>
-            <div style={{fontSize:12, color:"#666", letterSpacing:1, textTransform:"uppercase"}}>Stock Management</div>
+      <div style={{background:"#141414", borderBottom:"1px solid #2a2218", padding: isMobile ? "0 16px" : "0 32px"}}>
+        <div style={{maxWidth:1300, margin:"0 auto", display:"flex", alignItems:"center", justifyContent:"space-between", height: isMobile ? 52 : 64}}>
+          <div style={{display:"flex", alignItems:"center", gap:12}}>
+            <div style={{fontWeight:800, fontSize: isMobile ? 20 : 24, letterSpacing:3, color:"#f5a623"}}>CHAMO</div>
+            <div style={{width:1, height:20, background:"#333"}}/>
+            <div style={{fontSize: isMobile ? 10 : 12, color:"#666", letterSpacing:1, textTransform:"uppercase"}}>Stock Management</div>
           </div>
-          <nav style={{display:"flex",gap:4}}>
-            {tabs.map(([id,label]) => (
-              <button key={id} onClick={() => setTab(id)} style={{
-                padding:"8px 18px", borderRadius:8, border:"none", cursor:"pointer", fontSize:13, fontWeight:600, transition:"all .15s",
-                background: tab===id ? "#f5a623" : "transparent",
-                color: tab===id ? "#0e0e0e" : "#888"
-              }}>{label}</button>
-            ))}
-          </nav>
+          {!isMobile && (
+            <nav style={{display:"flex", gap:4}}>
+              {tabs.map(([id,emoji,label]) => (
+                <button key={id} onClick={() => setTab(id)} style={{
+                  padding:"8px 18px", borderRadius:8, border:"none", cursor:"pointer", fontSize:13, fontWeight:600, transition:"all .15s",
+                  background: tab===id ? "#f5a623" : "transparent",
+                  color: tab===id ? "#0e0e0e" : "#888"
+                }}>{emoji} {label}</button>
+              ))}
+            </nav>
+          )}
         </div>
       </div>
 
       {/* STATS BAR */}
-      <div style={{background:"#111", borderBottom:"1px solid #1e1e1e", padding:"12px 32px"}}>
-        <div style={{maxWidth:1300, margin:"0 auto", display:"flex", gap:32}}>
+      <div style={{background:"#111", borderBottom:"1px solid #1e1e1e", padding: isMobile ? "10px 16px" : "12px 32px"}}>
+        <div style={{maxWidth:1300, margin:"0 auto", display:"grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4,auto)", gap: isMobile ? "6px 16px" : "0 32px"}}>
           {[
-            ["Dishes",totalDishes],
-            ["Batch Recipes",totalBatches],
-            ["Avg Dish Cost",fmt(avgDishCost)],
-            ["Missing Prices",`${missingCount} dishes`],
+            ["Dishes", totalDishes],
+            ["Batches", totalBatches],
+            ["Avg Cost", fmt(avgDishCost)],
+            ["Missing", `${missingCount}`],
           ].map(([k,v]) => (
-            <div key={k} style={{display:"flex",alignItems:"baseline",gap:8}}>
-              <span style={{fontSize:11, color:"#555", textTransform:"uppercase", letterSpacing:1}}>{k}</span>
-              <span style={{fontSize:16, fontWeight:700, color:"#f5a623"}}>{v}</span>
+            <div key={k} style={{display:"flex", alignItems:"baseline", gap:6}}>
+              <span style={{fontSize: isMobile ? 10 : 11, color:"#555", textTransform:"uppercase", letterSpacing:1}}>{k}</span>
+              <span style={{fontSize: isMobile ? 14 : 16, fontWeight:700, color:"#f5a623"}}>{v}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div style={{maxWidth:1300, margin:"0 auto", padding:"32px 32px"}}>
+      <div style={{maxWidth:1300, margin:"0 auto", padding: isMobile ? "16px 16px" : "32px 32px"}}>
 
         {/* ── DISH COSTS ── */}
         {tab === "costs" && (
           <div>
             {/* Category filter */}
-            <div style={{display:"flex", gap:8, flexWrap:"wrap", marginBottom:24}}>
+            <div style={{display:"flex", gap:8, flexWrap: isMobile ? "nowrap" : "wrap", overflowX: isMobile ? "auto" : "visible", marginBottom:16, paddingBottom: isMobile ? 4 : 0, WebkitOverflowScrolling:"touch"}}>
               {CATS.map(cat => (
                 <button key={cat} onClick={() => setCatFilter(cat)} style={{
                   padding:"6px 14px", borderRadius:20, border:"1px solid", cursor:"pointer", fontSize:12, fontWeight:600, transition:"all .15s",
@@ -480,7 +488,7 @@ export default function ChamoStock() {
             </div>
 
             {/* Dish grid */}
-            <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(340px,1fr))", gap:16}}>
+            <div style={{display:"grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill,minmax(340px,1fr))", gap: isMobile ? 12 : 16}}>
               {filteredDishes.map(dish => {
                 const sell = sellPrices[dish.id] || 0;
                 const fc = sell > 0 ? (dish.total / sell) * 100 : null;
@@ -550,17 +558,18 @@ export default function ChamoStock() {
         {/* ── SUPPLIER OPTIMISER ── */}
         {tab === "supplier" && (
           <div>
-            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20}}>
-              <div>
-                <h2 style={{fontSize:20, fontWeight:800, marginBottom:4}}>Supplier Optimiser</h2>
-                <p style={{fontSize:13, color:"#666"}}>{Object.keys(RAW).length} ingredients • always buy from the highlighted supplier to minimise cost</p>
+            <div style={{marginBottom:16}}>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom: isMobile ? 10 : 4, flexWrap:"wrap", gap:10}}>
+                <h2 style={{fontSize: isMobile ? 17 : 20, fontWeight:800, margin:0}}>Supplier Optimiser</h2>
+                <input value={ingSearch} onChange={e=>setIngSearch(e.target.value)} placeholder="Search…"
+                  style={{background:"#1a1a1a",border:"1px solid #2a2a2a",borderRadius:8,padding:"8px 12px",color:"#e8e2d9",fontSize:13,width: isMobile ? "100%" : 220}}/>
               </div>
-              <input value={ingSearch} onChange={e=>setIngSearch(e.target.value)} placeholder="Search ingredient…"
-                style={{background:"#1a1a1a",border:"1px solid #2a2a2a",borderRadius:8,padding:"8px 14px",color:"#e8e2d9",fontSize:13,width:220}}/>
+              {!isMobile && <p style={{fontSize:13, color:"#666", margin:0}}>{Object.keys(RAW).length} ingredients • always buy from the highlighted supplier to minimise cost</p>}
             </div>
 
             <div style={{background:"#1a1a1a", borderRadius:12, border:"1px solid #252525", overflow:"hidden"}}>
-              <table style={{width:"100%", borderCollapse:"collapse"}}>
+              <div style={{overflowX: isMobile ? "auto" : "visible", WebkitOverflowScrolling:"touch"}}>
+              <table style={{width:"100%", minWidth: isMobile ? 600 : "auto", borderCollapse:"collapse"}}>
                 <thead>
                   <tr style={{background:"#141414", borderBottom:"2px solid #252525"}}>
                     {[["name","Ingredient"],["best","Best Price"],["saving","Max Saving"]].map(([col,label]) => (
@@ -608,6 +617,7 @@ export default function ChamoStock() {
                   })}
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         )}
@@ -615,13 +625,13 @@ export default function ChamoStock() {
         {/* ── BATCH COSTS ── */}
         {tab === "batch" && (
           <div>
-            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20}}>
-              <div>
-                <h2 style={{fontSize:20, fontWeight:800, marginBottom:4}}>Batch Recipe Costs</h2>
-                <p style={{fontSize:13, color:"#666"}}>{Object.keys(BATCHES).length} batch recipes • purple = uses another batch output as ingredient</p>
+            <div style={{marginBottom:16}}>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom: isMobile ? 10 : 4, flexWrap:"wrap", gap:10}}>
+                <h2 style={{fontSize: isMobile ? 17 : 20, fontWeight:800, margin:0}}>Batch Recipe Costs</h2>
+                <input value={batchSearch} onChange={e=>setBatchSearch(e.target.value)} placeholder="Search batch…"
+                  style={{background:"#1a1a1a",border:"1px solid #2a2a2a",borderRadius:8,padding:"8px 12px",color:"#e8e2d9",fontSize:13,width: isMobile ? "100%" : 220}}/>
               </div>
-              <input value={batchSearch} onChange={e=>setBatchSearch(e.target.value)} placeholder="Search batch…"
-                style={{background:"#1a1a1a",border:"1px solid #2a2a2a",borderRadius:8,padding:"8px 14px",color:"#e8e2d9",fontSize:13,width:220}}/>
+              {!isMobile && <p style={{fontSize:13, color:"#666", margin:0}}>{Object.keys(BATCHES).length} batch recipes • purple = uses another batch output as ingredient</p>}
             </div>
 
             {["Protein","Bases","Sauces","Pickles","Veg","Dry Mixes","Dairy","Bakery","Desserts"].map(catName => {
@@ -631,7 +641,8 @@ export default function ChamoStock() {
                 <div key={catName} style={{marginBottom:28}}>
                   <div style={{fontSize:11, color:"#f5a623", textTransform:"uppercase", letterSpacing:2, fontWeight:700, marginBottom:10}}>{catName}</div>
                   <div style={{background:"#1a1a1a", borderRadius:12, border:"1px solid #252525", overflow:"hidden"}}>
-                    <table style={{width:"100%", borderCollapse:"collapse"}}>
+                    <div style={{overflowX: isMobile ? "auto" : "visible", WebkitOverflowScrolling:"touch"}}>
+                    <table style={{width:"100%", minWidth: isMobile ? 480 : "auto", borderCollapse:"collapse"}}>
                       <thead>
                         <tr style={{background:"#141414", borderBottom:"1px solid #252525"}}>
                           {["Batch Recipe","Yield","Cost / Batch","Cost / Unit","Notes"].map(h => (
@@ -663,6 +674,7 @@ export default function ChamoStock() {
                         })}
                       </tbody>
                     </table>
+                    </div>
                   </div>
                 </div>
               );
@@ -673,8 +685,8 @@ export default function ChamoStock() {
         {/* ── PREP PLANNER ── */}
         {tab === "planner" && (
           <div>
-            <h2 style={{fontSize:20, fontWeight:800, marginBottom:4}}>Daily Prep Planner</h2>
-            <p style={{fontSize:13, color:"#666", marginBottom:24}}>Enter expected covers per dish → get batch quantities to prep + full ingredient shopping list</p>
+            <h2 style={{fontSize: isMobile ? 17 : 20, fontWeight:800, marginBottom:4}}>Daily Prep Planner</h2>
+            {!isMobile && <p style={{fontSize:13, color:"#666", marginBottom:24}}>Enter expected covers per dish → get batch quantities to prep + full ingredient shopping list</p>}
 
             {/* Cover inputs */}
             <div style={{background:"#1a1a1a", borderRadius:12, border:"1px solid #252525", padding:24, marginBottom:24}}>
@@ -709,7 +721,8 @@ export default function ChamoStock() {
                 <div style={{marginBottom:24}}>
                   <div style={{fontSize:14, fontWeight:700, marginBottom:12, color:"#e8e2d9"}}>Batches to Make</div>
                   <div style={{background:"#1a1a1a", borderRadius:12, border:"1px solid #252525", overflow:"hidden"}}>
-                    <table style={{width:"100%", borderCollapse:"collapse"}}>
+                    <div style={{overflowX: isMobile ? "auto" : "visible", WebkitOverflowScrolling:"touch"}}>
+                    <table style={{width:"100%", minWidth: isMobile ? 480 : "auto", borderCollapse:"collapse"}}>
                       <thead>
                         <tr style={{background:"#141414", borderBottom:"1px solid #252525"}}>
                           {["Batch Recipe","Category","Qty Needed","# Batches to Make","Estimated Cost"].map(h=>(
@@ -732,17 +745,19 @@ export default function ChamoStock() {
                         ))}
                       </tbody>
                     </table>
+                    </div>
                   </div>
                 </div>
 
                 {/* Shopping list */}
                 <div>
-                  <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12}}>
-                    <div style={{fontSize:14, fontWeight:700, color:"#e8e2d9"}}>Raw Ingredient Shopping List</div>
-                    <div style={{fontSize:16, fontWeight:800, color:"#f5a623"}}>Est. Order Total: {fmt(totalOrderValue)}</div>
+                  <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12, flexWrap:"wrap", gap:8}}>
+                    <div style={{fontSize: isMobile ? 13 : 14, fontWeight:700, color:"#e8e2d9"}}>Raw Ingredient Shopping List</div>
+                    <div style={{fontSize: isMobile ? 14 : 16, fontWeight:800, color:"#f5a623"}}>Est. Total: {fmt(totalOrderValue)}</div>
                   </div>
                   <div style={{background:"#1a1a1a", borderRadius:12, border:"1px solid #252525", overflow:"hidden"}}>
-                    <table style={{width:"100%", borderCollapse:"collapse"}}>
+                    <div style={{overflowX: isMobile ? "auto" : "visible", WebkitOverflowScrolling:"touch"}}>
+                    <table style={{width:"100%", minWidth: isMobile ? 480 : "auto", borderCollapse:"collapse"}}>
                       <thead>
                         <tr style={{background:"#141414", borderBottom:"1px solid #252525"}}>
                           {["Ingredient","Total Qty Needed","Packages","Best Supplier","Cost"].map(h=>(
@@ -773,6 +788,7 @@ export default function ChamoStock() {
                         ))}
                       </tbody>
                     </table>
+                    </div>
                   </div>
                   <div style={{fontSize:11, color:"#444", marginTop:12}}>
                     ⚠ Quantities account for batch recipe needs only. Add buffer stock as required. Items with no price data are excluded from order total.
@@ -789,6 +805,22 @@ export default function ChamoStock() {
           </div>
         )}
       </div>
+
+      {/* MOBILE BOTTOM NAV */}
+      {isMobile && (
+        <div style={{position:"fixed", bottom:0, left:0, right:0, background:"#141414", borderTop:"1px solid #2a2218", display:"flex", zIndex:100}}>
+          {tabs.map(([id,emoji,label]) => (
+            <button key={id} onClick={() => setTab(id)} style={{
+              flex:1, padding:"10px 0", border:"none", cursor:"pointer", background:"transparent",
+              display:"flex", flexDirection:"column", alignItems:"center", gap:2,
+              color: tab===id ? "#f5a623" : "#555", transition:"color .15s"
+            }}>
+              <span style={{fontSize:20}}>{emoji}</span>
+              <span style={{fontSize:9, fontWeight:700, textTransform:"uppercase", letterSpacing:0.5}}>{label}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
