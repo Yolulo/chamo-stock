@@ -5,7 +5,7 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 // ─────────────────────────────────────────────────────────────
 const SL = {
   TP:"Taylor Produce", S:"Brakes", B:"Booker", AFS:"AFS",
-  CM:"CM", WF:"WF", AC:"AC", Envior:"Envior", FEO:"Far East Oriental"
+  CM:"Choice Meats", WF:"Ward & Field", AC:"Asia Continental", Envior:"Envior", FEO:"Far East Oriental"
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -14,21 +14,21 @@ const SL = {
 // ─────────────────────────────────────────────────────────────
 const RAW = {
   // PRODUCE
-  basil:        {n:"Basil Catering Bunch (100g)",    q:100,   u:"g",    p:{TP:1.79,S:2.03,B:1.59}},
+  basil:        {n:"Basil Catering Bunch (100g)",    q:100,   u:"g",    p:{TP:1.79,S:2.03,B:1.59,AC:1.50}},
   white_potato: {n:"White Potato (2kg)",             q:2000,  u:"g",    p:{TP:1.38,B:1.35,AC:2.29}},
   cauliflower:  {n:"Cauliflower (ea ~800g)",         q:800,   u:"g",    p:{TP:1.15,S:1.66,B:1.49,AC:1.99}},
   cherry_tom:   {n:"Cherry Tomato (250g)",           q:250,   u:"g",    p:{TP:0.74,S:0.82,B:0.99}},
   plum_tom:     {n:"Plum Tomato (ea ~100g)",          q:100,   u:"g",    p:{TP:0.79,S:0.72}},
   red_chilli:   {n:"Red Chilli (1kg)",               q:1000,  u:"g",    p:{TP:7.99,S:6.12,AC:8.99}},
-  chives:       {n:"Chives Catering Bunch (100g)",   q:100,   u:"g",    p:{TP:1.49,S:2.03,B:1.59}},
-  coriander:    {n:"Coriander Catering Bunch (100g)", q:100,   u:"g",    p:{TP:0.99,S:0.83,B:1.59,AC:0.79}},
-  dill:         {n:"Dill Catering Bag (100g)",       q:100,   u:"g",    p:{TP:1.59,S:1.31,B:1.59,AC:1.09}},
+  chives:       {n:"Chives Catering Bunch (100g)",   q:100,   u:"g",    p:{TP:1.49,S:2.03,B:1.59,AC:1.50}},
+  coriander:    {n:"Coriander Catering Bunch (100g)", q:100,   u:"g",    p:{TP:0.99,S:0.83,B:1.59,AC:1.50}},
+  dill:         {n:"Dill Catering Bag (100g)",       q:100,   u:"g",    p:{TP:1.59,S:1.31,B:1.59,AC:1.50}},
   garlic:       {n:"Garlic Peeled (1kg)",            q:1000,  u:"g",    p:{TP:4.75,S:5.03,B:5.49,AC:4.79}},
   ginger:       {n:"Ginger (300g)",                  q:300,   u:"g",    p:{TP:1.47,S:1.54,B:2.99,AC:1.39}},
   iceberg:      {n:"Iceberg Lettuce (~400g)",        q:400,   u:"g",    p:{TP:1.00,S:0.79,B:0.85}},
   white_onion:  {n:"White Onion (2.5kg)",            q:2500,  u:"g",    p:{TP:3.75,S:1.78,B:3.74,AC:4.80}},
   limes:        {n:"Limes x6 (~300g)",               q:300,   u:"g",    p:{TP:1.44,S:1.48,B:2.34,AC:3.54}},
-  mint:         {n:"Mint Catering Bunch (100g)",     q:100,   u:"g",    p:{TP:1.45,S:1.30,B:1.59,AC:0.79}},
+  mint:         {n:"Mint Catering Bunch (100g)",     q:100,   u:"g",    p:{TP:1.45,S:1.30,B:1.59,AC:1.50}},
   plantain:     {n:"Plantain Ripe (1kg)",            q:1000,  u:"g",    p:{S:3.71,AC:3.38}},
   red_onion:    {n:"Red Onion (per kg)",             q:1000,  u:"g",    p:{TP:1.29,S:0.97,B:0.99,AC:1.90}},
   red_cabbage:  {n:"Red Cabbage (~1kg)",             q:1000,  u:"g",    p:{TP:1.25,S:0.96}},
@@ -54,8 +54,8 @@ const RAW = {
   parmesan:     {n:"Parmesan (1kg)",                 q:1000,  u:"g",    p:{TP:15.99,S:22.02,B:26.58}},
   stilton:      {n:"Stilton / Blue Cheese (per kg)", q:1000,  u:"g",    p:{TP:12.95,S:11.01,B:14.90}},
   // PROTEINS
-  chicken_th:   {n:"Chicken Thigh Boneless (2.5kg)", q:2500,  u:"g",    p:{S:15.99,B:14.99,AFS:12.36}},
-  chuck_roll:   {n:"Chuck Roll/Steak (per kg)",      q:1000,  u:"g",    p:{S:12.22,B:11.25,AFS:11.00}},
+  chicken_th:   {n:"Chicken Thigh Boneless (2.5kg)", q:2500,  u:"g",    p:{S:15.99,B:14.99,CM:12.36,WF:16.25}},
+  chuck_roll:   {n:"Chuck Roll/Steak (per kg)",      q:1000,  u:"g",    p:{S:12.22,B:11.25,CM:11.00}},
   king_prawn:   {n:"King Prawn 16-20 PD (1kg)",      q:1000,  u:"g",    p:{S:10.05,B:8.50,FEO:9.50}},
   mussels:      {n:"Mussels Whole Shell (1kg)",      q:1000,  u:"g",    p:{S:5.00,B:3.69}},
   atl_prawns:   {n:"Atlantic Prawns Small (1.3kg)",  q:1300,  u:"g",    p:{S:20.19,B:18.79}},
@@ -74,6 +74,7 @@ const RAW = {
   pine_juice:   {n:"Pineapple Juice (1L)",           q:1000,  u:"ml",   p:{TP:1.50,AC:1.20}},
   coconut_milk: {n:"Coconut Milk (400ml/1L)",         q:400,   u:"ml",   p:{TP:1.85,FEO:2.60}},
   gochujang:    {n:"Gochujang Paste (1kg)",          q:1000,  u:"g",    p:{TP:8.49,S:8.80}},
+  kecap_manis:  {n:"Kecap Manis Sweet Soy (12x600ml)", q:7200, u:"ml",   p:{TP:33.00,FEO:35.00}},
   sweet_chilli: {n:"Thai Sweet Chilli Sauce (1L)",   q:1000,  u:"ml",   p:{TP:2.30}},
   // BREAD & GRAINS
   brioche_bun:  {n:"Brioche Burger Bun (6×7=42)",   q:42,    u:"ea",   p:{TP:21.99,S:15.29,B:11.99}},
@@ -97,8 +98,8 @@ const RAW = {
   garlic_pow:   {n:"Garlic Powder (700g)",           q:700,   u:"g",    p:{TP:3.30,S:22.74,B:8.49,AC:6.98}},
   blk_pepper:   {n:"Cracked Black Pepper (1kg)",     q:1000,  u:"g",    p:{TP:14.49,S:24.26,B:10.00,AC:12.69}},
   dry_thyme:    {n:"Dried Thyme (500g)",             q:500,   u:"g",    p:{TP:6.99,S:9.48,B:10.00}},
-  fresh_thyme:  {n:"Fresh Thyme Bunch (~30g)",       q:30,    u:"g",    p:{TP:1.49,S:1.32,B:1.59}},
-  rosemary:     {n:"Rosemary Bunch (~30g)",          q:30,    u:"g",    p:{TP:1.49,S:1.25,B:1.59}},
+  fresh_thyme:  {n:"Fresh Thyme Bunch (~30g)",       q:30,    u:"g",    p:{TP:1.49,S:1.32,B:1.59,AC:1.50}},
+  rosemary:     {n:"Rosemary Bunch (~30g)",          q:30,    u:"g",    p:{TP:1.49,S:1.25,B:1.59,AC:1.50}},
   five_spice:   {n:"Chinese Five Spice (600g)",      q:600,   u:"g",    p:{TP:6.75,S:8.97,B:16.35}},
   jerk_seas:    {n:"Jerk Seasoning (1kg)",           q:1000,  u:"g",    p:{TP:10.65,B:10.75,AC:14.90}},
   onion_pow:    {n:"Onion Powder (650g)",            q:650,   u:"g",    p:{TP:4.50,S:6.73,B:7.98,AC:4.86}},
@@ -169,7 +170,7 @@ const BATCHES = {
 // ─────────────────────────────────────────────────────────────
 const DISHES = {
   // SMALL PLATES
-  viet_salad:    {n:"Vietnamese Salad",          cat:"Small Plates",    ings:[r("vermicelli",100,"g"),b("mixed_sesame",5,"g"),b("viet_salad_mix",75,"g"),b("mojo",20,"ml")]},
+  viet_salad:    {n:"Vietnamese Salad",          cat:"Small Plates",    ings:[r("vermicelli",100,"g"),b("mixed_sesame",5,"g"),b("viet_salad_mix",75,"g"),r("kecap_manis",50,"ml"),r("spring_onion",5,"g")]},
   sw_pot_sm:     {n:"Sweet Potato Wedges",       cat:"Small Plates",    ings:[b("sw_pot_wedges",250,"g"),b("jalapeno_oil",10,"ml"),r("chives",0.5,"g"),r("spring_onion",1,"g"),r("red_chilli",1,"g"),r("coriander",1,"g")]},
   shrimp_bobo:   {n:"Shrimp Bobo",              cat:"Small Plates",    ings:[r("focaccia",225,"g"),b("bobo_base",200,"g"),b("fish_bags",1,"bag"),r("coriander",1,"g"),r("spring_onion",5,"g"),r("limes",25,"g")]},
   ses_plantain:  {n:"Sesame Plantain",           cat:"Small Plates",    ings:[b("mixed_sesame",5,"g"),r("sweet_chilli",50,"ml"),r("chives",0.5,"g"),b("plantain_sticks",100,"g"),b("tempura",50,"ml"),r("rocket",15,"g"),b("mojo",5,"ml")]},
