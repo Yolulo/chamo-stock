@@ -14,106 +14,106 @@ const SL = {
 // ─────────────────────────────────────────────────────────────
 const RAW = {
   // PRODUCE
-  basil:        {n:"Basil Catering Bunch (100g)",    q:100,   u:"g",    p:{TP:1.79,S:2.03,B:1.59,AC:1.50}},
-  white_potato: {n:"White Potato (2kg)",             q:2000,  u:"g",    p:{TP:1.38,B:1.35,AC:2.29}},
-  cauliflower:  {n:"Cauliflower (ea ~800g)",         q:800,   u:"g",    p:{TP:1.15,S:1.66,B:1.49,AC:1.99}},
-  cherry_tom:   {n:"Cherry Tomato (250g)",           q:250,   u:"g",    p:{TP:0.74,S:0.82,B:0.99}},
-  plum_tom:     {n:"Plum Tomato (ea ~100g)",          q:100,   u:"g",    p:{TP:0.79,S:0.72}},
-  red_chilli:   {n:"Red Chilli (1kg)",               q:1000,  u:"g",    p:{TP:7.99,S:6.12,AC:8.99}},
-  chives:       {n:"Chives Catering Bunch (100g)",   q:100,   u:"g",    p:{TP:1.49,S:2.03,B:1.59,AC:1.50}},
-  coriander:    {n:"Coriander Catering Bunch (100g)", q:100,   u:"g",    p:{TP:0.99,S:0.83,B:1.59,AC:1.50}},
-  dill:         {n:"Dill Catering Bag (100g)",       q:100,   u:"g",    p:{TP:1.59,S:1.31,B:1.59,AC:1.50}},
-  garlic:       {n:"Garlic Peeled (1kg)",            q:1000,  u:"g",    p:{TP:4.75,S:5.03,B:5.49,AC:4.79}},
-  ginger:       {n:"Ginger (300g)",                  q:300,   u:"g",    p:{TP:1.47,S:1.54,B:2.99,AC:1.39}},
-  iceberg:      {n:"Iceberg Lettuce (~400g)",        q:400,   u:"g",    p:{TP:1.00,S:0.79,B:0.85}},
-  white_onion:  {n:"White Onion (2.5kg)",            q:2500,  u:"g",    p:{TP:3.75,S:1.78,B:3.74,AC:4.80}},
-  limes:        {n:"Limes x6 (~300g)",               q:300,   u:"g",    p:{TP:1.44,S:1.48,B:2.34,AC:3.54}},
-  mint:         {n:"Mint Catering Bunch (100g)",     q:100,   u:"g",    p:{TP:1.45,S:1.30,B:1.59,AC:1.50}},
-  plantain:     {n:"Plantain Ripe (1kg)",            q:1000,  u:"g",    p:{S:3.71,AC:3.38}},
-  red_onion:    {n:"Red Onion (per kg)",             q:1000,  u:"g",    p:{TP:1.29,S:0.97,B:0.99,AC:1.90}},
-  red_cabbage:  {n:"Red Cabbage (~1kg)",             q:1000,  u:"g",    p:{TP:1.25,S:0.96}},
-  carrot:       {n:"Carrot (1kg)",                   q:1000,  u:"g",    p:{TP:0.99}},
-  cucumber:     {n:"Cucumber (ea)",                  q:1,     u:"ea",   p:{TP:1.25}},
-  rocket:       {n:"Rocket (500g)",                  q:500,   u:"g",    p:{TP:3.89,S:2.84,B:3.06}},
-  spring_onion: {n:"Spring Onion Bunch (100g)",      q:100,   u:"g",    p:{TP:0.50,S:0.50,B:0.79,AC:0.69}},
-  sweet_potato: {n:"Sweet Potato (1kg)",             q:1000,  u:"g",    p:{TP:2.99,S:3.52,B:3.49,AC:3.19}},
-  red_pepper:   {n:"Red Pepper (ea ~200g)",          q:200,   u:"g",    p:{B:0.69}},
-  peashoots:    {n:"Peashoots (100g)",               q:100,   u:"g",    p:{TP:1.50,S:2.38}},
-  jalapeno_f:   {n:"Jalapeños Fresh (100g)",         q:100,   u:"g",    p:{TP:1.50}},
-  oyster_mush:  {n:"Oyster Mushrooms (1.5kg)",       q:1500,  u:"g",    p:{TP:9.00,S:14.10}},
-  dill_pickles: {n:"Pickled Gherkins (2.25kg)",      q:2250,  u:"g",    p:{TP:6.80,S:7.58,B:11.29}},
-  crispy_onion: {n:"Crispy Fried Onions GF (1kg)",   q:1000,  u:"g",    p:{S:6.54,B:7.23,AC:4.23}},
+  basil:{n:"Basil Catering Bunch (100g)",    q:100,   u:"g",    p:{TP:1.79,S:2.03,B:1.59,AC:1.50}, cat:"Herbs"},
+  white_potato:{n:"White Potato (2kg)",             q:2000,  u:"g",    p:{TP:1.38,B:1.35,AC:2.29}, cat:"Fruit & Veg"},
+  cauliflower:{n:"Cauliflower (ea ~800g)",         q:800,   u:"g",    p:{TP:1.15,S:1.66,B:1.49,AC:1.99}, cat:"Fruit & Veg"},
+  cherry_tom:{n:"Cherry Tomato (250g)",           q:250,   u:"g",    p:{TP:0.74,S:0.82,B:0.99}, cat:"Fruit & Veg"},
+  plum_tom:{n:"Plum Tomato (ea ~100g)",          q:100,   u:"g",    p:{TP:0.79,S:0.72}, cat:"Fruit & Veg"},
+  red_chilli:{n:"Red Chilli (1kg)",               q:1000,  u:"g",    p:{TP:7.99,S:6.12,AC:8.99}, cat:"Fruit & Veg"},
+  chives:{n:"Chives Catering Bunch (100g)",   q:100,   u:"g",    p:{TP:1.49,S:2.03,B:1.59,AC:1.50}, cat:"Herbs"},
+  coriander:{n:"Coriander Catering Bunch (100g)", q:100,   u:"g",    p:{TP:0.99,S:0.83,B:1.59,AC:1.50}, cat:"Herbs"},
+  dill:{n:"Dill Catering Bag (100g)",       q:100,   u:"g",    p:{TP:1.59,S:1.31,B:1.59,AC:1.50}, cat:"Herbs"},
+  garlic:{n:"Garlic Peeled (1kg)",            q:1000,  u:"g",    p:{TP:4.75,S:5.03,B:5.49,AC:4.79}, cat:"Fruit & Veg"},
+  ginger:{n:"Ginger (300g)",                  q:300,   u:"g",    p:{TP:1.47,S:1.54,B:2.99,AC:1.39}, cat:"Fruit & Veg"},
+  iceberg:{n:"Iceberg Lettuce (~400g)",        q:400,   u:"g",    p:{TP:1.00,S:0.79,B:0.85}, cat:"Fruit & Veg"},
+  white_onion:{n:"White Onion (2.5kg)",            q:2500,  u:"g",    p:{TP:3.75,S:1.78,B:3.74,AC:4.80}, cat:"Fruit & Veg"},
+  limes:{n:"Limes x6 (~300g)",               q:300,   u:"g",    p:{TP:1.44,S:1.48,B:2.34,AC:3.54}, cat:"Fruit & Veg"},
+  mint:{n:"Mint Catering Bunch (100g)",     q:100,   u:"g",    p:{TP:1.45,S:1.30,B:1.59,AC:1.50}, cat:"Herbs"},
+  plantain:{n:"Plantain Ripe (1kg)",            q:1000,  u:"g",    p:{S:3.71,AC:3.38}, cat:"Fruit & Veg"},
+  red_onion:{n:"Red Onion (per kg)",             q:1000,  u:"g",    p:{TP:1.29,S:0.97,B:0.99,AC:1.90}, cat:"Fruit & Veg"},
+  red_cabbage:{n:"Red Cabbage (~1kg)",             q:1000,  u:"g",    p:{TP:1.25,S:0.96}, cat:"Fruit & Veg"},
+  carrot:{n:"Carrot (1kg)",                   q:1000,  u:"g",    p:{TP:0.99}, cat:"Fruit & Veg"},
+  cucumber:{n:"Cucumber (ea)",                  q:1,     u:"ea",   p:{TP:1.25}, cat:"Fruit & Veg"},
+  rocket:{n:"Rocket (500g)",                  q:500,   u:"g",    p:{TP:3.89,S:2.84,B:3.06}, cat:"Fruit & Veg"},
+  spring_onion:{n:"Spring Onion Bunch (100g)",      q:100,   u:"g",    p:{TP:0.50,S:0.50,B:0.79,AC:0.69}, cat:"Fruit & Veg"},
+  sweet_potato:{n:"Sweet Potato (1kg)",             q:1000,  u:"g",    p:{TP:2.99,S:3.52,B:3.49,AC:3.19}, cat:"Fruit & Veg"},
+  red_pepper:{n:"Red Pepper (ea ~200g)",          q:200,   u:"g",    p:{B:0.69}, cat:"Fruit & Veg"},
+  peashoots:{n:"Peashoots (100g)",               q:100,   u:"g",    p:{TP:1.50,S:2.38}, cat:"Fruit & Veg"},
+  jalapeno_f:{n:"Jalapeños Fresh (100g)",         q:100,   u:"g",    p:{TP:1.50}, cat:"Fruit & Veg"},
+  oyster_mush:{n:"Oyster Mushrooms (1.5kg)",       q:1500,  u:"g",    p:{TP:9.00,S:14.10}, cat:"Fruit & Veg"},
+  dill_pickles:{n:"Pickled Gherkins (2.25kg)",      q:2250,  u:"g",    p:{TP:6.80,S:7.58,B:11.29}, cat:"Fruit & Veg"},
+  crispy_onion:{n:"Crispy Fried Onions GF (1kg)",   q:1000,  u:"g",    p:{S:6.54,B:7.23,AC:4.23}, cat:"Fruit & Veg"},
   // DAIRY & EGGS
-  buttermilk:   {n:"Buttermilk (1L)",                q:1000,  u:"ml",   p:{TP:2.70,S:3.12,B:1.75}},
-  cheddar:      {n:"Cheddar Grated Mature (2kg)",    q:2000,  u:"g",    p:{TP:13.50,S:12.30,B:11.99}},
-  eggs:         {n:"Eggs (Pack of 18)",              q:18,    u:"ea",   p:{TP:5.37,S:6.04,B:3.78,AC:6.29}},
-  sour_cream:   {n:"Sour Cream (2kg)",               q:2000,  u:"g",    p:{TP:7.50,S:14.39,B:8.50}},
-  whole_milk:   {n:"Whole Milk (2L)",                q:2000,  u:"ml",   p:{TP:1.75,S:1.89,B:1.49,AC:1.49}},
-  butter_s:     {n:"Butter Salted (250g)",           q:250,   u:"g",    p:{TP:1.79,S:2.42,B:1.79,AC:1.79}},
-  feta:         {n:"Feta (900g)",                    q:900,   u:"g",    p:{TP:11.00,S:13.38,B:11.24}},
-  parmesan:     {n:"Parmesan (1kg)",                 q:1000,  u:"g",    p:{TP:15.99,S:22.02,B:26.58}},
-  stilton:      {n:"Stilton / Blue Cheese (per kg)", q:1000,  u:"g",    p:{TP:12.95,S:11.01,B:14.90}},
+  buttermilk:{n:"Buttermilk (1L)",                q:1000,  u:"ml",   p:{TP:2.70,S:3.12,B:1.75}, cat:"Dairy"},
+  cheddar:{n:"Cheddar Grated Mature (2kg)",    q:2000,  u:"g",    p:{TP:13.50,S:12.30,B:11.99}, cat:"Dairy"},
+  eggs:{n:"Eggs (Pack of 18)",              q:18,    u:"ea",   p:{TP:5.37,S:6.04,B:3.78,AC:6.29}, cat:"Dairy"},
+  sour_cream:{n:"Sour Cream (2kg)",               q:2000,  u:"g",    p:{TP:7.50,S:14.39,B:8.50}, cat:"Dairy"},
+  whole_milk:{n:"Whole Milk (2L)",                q:2000,  u:"ml",   p:{TP:1.75,S:1.89,B:1.49,AC:1.49}, cat:"Dairy"},
+  butter_s:{n:"Butter Salted (250g)",           q:250,   u:"g",    p:{TP:1.79,S:2.42,B:1.79,AC:1.79}, cat:"Dairy"},
+  feta:{n:"Feta (900g)",                    q:900,   u:"g",    p:{TP:11.00,S:13.38,B:11.24}, cat:"Dairy"},
+  parmesan:{n:"Parmesan (1kg)",                 q:1000,  u:"g",    p:{TP:15.99,S:22.02,B:26.58}, cat:"Dairy"},
+  stilton:{n:"Stilton / Blue Cheese (per kg)", q:1000,  u:"g",    p:{TP:12.95,S:11.01,B:14.90}, cat:"Dairy"},
   // PROTEINS
-  chicken_th:   {n:"Chicken Thigh Boneless (2.5kg)", q:2500,  u:"g",    p:{S:15.99,B:14.99,CM:12.36,WF:16.25}},
-  chuck_roll:   {n:"Chuck Roll/Steak (per kg)",      q:1000,  u:"g",    p:{S:12.22,B:11.25,CM:11.00}},
-  king_prawn:   {n:"King Prawn 16-20 PD (1kg)",      q:1000,  u:"g",    p:{S:10.05,B:8.50,FEO:9.50}},
-  mussels:      {n:"Mussels Whole Shell (1kg)",      q:1000,  u:"g",    p:{S:5.00,B:3.69}},
-  atl_prawns:   {n:"Atlantic Prawns Small (1.3kg)",  q:1300,  u:"g",    p:{S:20.19,B:18.79}},
-  white_fish:   {n:"Whitefish Fillet (800g)",        q:800,   u:"g",    p:{WF:5.99}},
-  chk_tenders:  {n:"Buttermilk Chicken Tenders (2kg)",q:2000, u:"g",    p:{S:14.90,B:18.99,AFS:11.49}},
+  chicken_th:{n:"Chicken Thigh Boneless (2.5kg)", q:2500,  u:"g",    p:{S:15.99,B:14.99,CM:12.36,WF:15.00}, cat:"Butchery"},
+  chuck_roll:{n:"Chuck Roll/Steak (per kg)",      q:1000,  u:"g",    p:{S:12.22,B:11.25,CM:11.00,WF:12.99}, cat:"Butchery"},
+  king_prawn:{n:"King Prawn 16-20 PD (1kg)",      q:1000,  u:"g",    p:{S:10.05,B:8.50,FEO:9.50}, cat:"Frozen"},
+  mussels:{n:"Mussels Whole Shell (1kg)",      q:1000,  u:"g",    p:{S:5.00,B:3.69}, cat:"Frozen"},
+  atl_prawns:{n:"Atlantic Prawns Small (1.3kg)",  q:1300,  u:"g",    p:{S:20.19,B:18.79}, cat:"Frozen"},
+  white_fish:{n:"Whitefish Fillet (800g)",        q:800,   u:"g",    p:{B:5.99}, cat:"Frozen"},
+  chk_tenders:{n:"Buttermilk Chicken Tenders (2kg)",q:2000, u:"g",    p:{S:14.90,B:18.99,AFS:11.49}, cat:"Butchery"},
   // FROZEN / PROCESSED
-  tater_tots:   {n:"Aviko Tater Bites (10kg)",       q:10000, u:"g",    p:{TP:27.99,B:20.95,AFS:20.99}},
+  tater_tots:{n:"Aviko Tater Bites (10kg)",       q:10000, u:"g",    p:{TP:27.99,B:20.95,AFS:20.99}, cat:"Frozen"},
   // OILS & LIQUIDS
-  mayo:         {n:"Mayonnaise (5L)",                q:5000,  u:"ml",   p:{TP:14.95,S:9.91,B:9.49}},
-  vegan_mayo:   {n:"Vegan Mayo (5L)",                q:5000,  u:"ml",   p:{TP:15.00,S:11.22,B:12.99}},
-  franks:       {n:"Franks Red Hot Sauce (3.78L)",   q:3780,  u:"ml",   p:{S:18.99}},
-  lime_juice:   {n:"Lime Juice (1L)",                q:1000,  u:"ml",   p:{TP:2.50,S:2.58,B:3.29}},
-  olive_pomace: {n:"Olive Pomace Oil (5L)",          q:5000,  u:"ml",   p:{TP:18.00,S:14.80,B:18.99,AC:9.49}},
-  wine_vin:     {n:"White Wine Vinegar (5L)",        q:5000,  u:"ml",   p:{TP:4.40,S:4.82,B:9.48}},
-  sriracha:     {n:"Sriracha Sauce (1L)",            q:1000,  u:"ml",   p:{TP:4.99,S:5.31,B:2.99,AC:3.59}},
-  pine_juice:   {n:"Pineapple Juice (1L)",           q:1000,  u:"ml",   p:{TP:1.50,AC:1.20}},
-  coconut_milk: {n:"Coconut Milk (400ml/1L)",         q:400,   u:"ml",   p:{TP:1.85,FEO:2.60}},
-  gochujang:    {n:"Gochujang Paste (1kg)",          q:1000,  u:"g",    p:{TP:8.49,S:8.80}},
-  kecap_manis:  {n:"Kecap Manis Sweet Soy (12x600ml)", q:7200, u:"ml",   p:{TP:33.00,FEO:35.00}},
-  sweet_chilli: {n:"Thai Sweet Chilli Sauce (1L)",   q:1000,  u:"ml",   p:{TP:2.30}},
+  mayo:{n:"Mayonnaise (5L)",                q:5000,  u:"ml",   p:{TP:14.95,S:9.91,B:9.49}, cat:"Dry Store"},
+  vegan_mayo:{n:"Vegan Mayo (5L)",                q:5000,  u:"ml",   p:{TP:15.00,S:11.22,B:12.99}, cat:"Dry Store"},
+  franks:{n:"Franks Red Hot Sauce (3.78L)",   q:3780,  u:"ml",   p:{S:18.99}, cat:"Dry Store"},
+  lime_juice:{n:"Lime Juice (1L)",                q:1000,  u:"ml",   p:{TP:2.50,S:2.58,B:3.29}, cat:"Dry Store"},
+  olive_pomace:{n:"Olive Pomace Oil (5L)",          q:5000,  u:"ml",   p:{TP:18.00,S:14.80,B:18.99,AC:9.49}, cat:"Dry Store"},
+  wine_vin:{n:"White Wine Vinegar (5L)",        q:5000,  u:"ml",   p:{TP:4.40,S:4.82,B:9.48}, cat:"Dry Store"},
+  sriracha:{n:"Sriracha Sauce (1L)",            q:1000,  u:"ml",   p:{TP:4.99,S:5.31,B:2.99,AC:3.59}, cat:"Dry Store"},
+  pine_juice:{n:"Pineapple Juice (1L)",           q:1000,  u:"ml",   p:{TP:1.50,AC:1.20}, cat:"Drinks"},
+  coconut_milk:{n:"Coconut Milk (400ml/1L)",         q:400,   u:"ml",   p:{TP:1.85,FEO:2.60}, cat:"Drinks"},
+  gochujang:{n:"Gochujang Paste (1kg)",          q:1000,  u:"g",    p:{TP:8.49,S:8.80}, cat:"Dry Store"},
+  kecap_manis:{n:"Kecap Manis Sweet Soy (12x600ml)", q:7200, u:"ml",   p:{TP:33.00,FEO:35.00}, cat:"Dry Store"},
+  sweet_chilli:{n:"Thai Sweet Chilli Sauce (1L)",   q:1000,  u:"ml",   p:{TP:2.30}, cat:"Dry Store"},
   // BREAD & GRAINS
-  brioche_bun:  {n:"Brioche Burger Bun (6×7=42)",   q:42,    u:"ea",   p:{TP:21.99,S:15.29,B:11.99}},
-  bri_slice:    {n:"Brioche Sliced (7×500g ~84sl)",  q:84,    u:"ea",   p:{TP:20.93,S:22.02,B:20.99}},
+  brioche_bun:{n:"Brioche Burger Bun (6×7=42)",   q:42,    u:"ea",   p:{TP:21.99,S:15.29,B:11.99}, cat:"Bakery"},
+  bri_slice:{n:"Brioche Sliced (7×500g ~84sl)",  q:84,    u:"ea",   p:{TP:20.93,S:22.02,B:20.99}, cat:"Bakery"},
   tortilla_6:   {n:'Corn Tortilla Fry 6" (144s)',    q:144,   u:"ea",   p:{TP:16.95,S:17.56}},
   tortilla_4:   {n:'Corn Tortilla Soft 4" (216s)',   q:216,   u:"ea",   p:{TP:15.99,S:17.42}},
-  tortilla_lrg: {n:"Large White Tortilla (10pk)",    q:10,    u:"ea",   p:{TP:2.99}},
-  rice:         {n:"Rice (5kg)",                     q:5000,  u:"g",    p:{TP:11.99,S:13.14,B:12.29,AC:13.69}},
-  plain_flour:  {n:"Plain Flour (1.5kg)",            q:1500,  u:"g",    p:{TP:1.70,S:1.72,B:1.29}},
-  gram_flour:   {n:"Gram Flour (2kg)",               q:2000,  u:"g",    p:{TP:3.25,S:3.45,B:3.49}},
-  panko:        {n:"Panko Breadcrumb (1kg)",         q:1000,  u:"g",    p:{TP:5.95,B:4.69,FEO:1.50}},
-  puff_pastry:  {n:"Puff Pastry (1.5kg)",            q:1500,  u:"g",    p:{TP:6.45,S:3.85,B:5.25}},
-  vermicelli:   {n:"Vermicelli (1kg)",               q:1000,  u:"g",    p:{S:8.98,FEO:2.50}},
-  tempura_f:    {n:"Tempura Batter Mix GF (1kg)",    q:1000,  u:"g",    p:{TP:5.50,S:2.37,B:1.99,FEO:5.50}},
-  focaccia:     {n:"Focaccia (3.8kg)",               q:3800,  u:"g",    p:{TP:33.00,S:25.41}},
-  cornflour:    {n:"Cornflour (3.5kg)",              q:3500,  u:"g",    p:{TP:6.94,S:11.15,B:9.99}},
-  arepa_flour:  {n:"Arepa Flour (1kg)",              q:1000,  u:"g",    p:{FEO:2.30}},
+  tortilla_lrg:{n:"Large White Tortilla (10pk)",    q:10,    u:"ea",   p:{TP:2.99}, cat:"Bakery"},
+  rice:{n:"Rice (5kg)",                     q:5000,  u:"g",    p:{TP:11.99,S:13.14,B:12.29,AC:13.69}, cat:"Dry Store"},
+  plain_flour:{n:"Plain Flour (1.5kg)",            q:1500,  u:"g",    p:{TP:1.70,S:1.72,B:1.29}, cat:"Dry Store"},
+  gram_flour:{n:"Gram Flour (2kg)",               q:2000,  u:"g",    p:{TP:3.25,S:3.45,B:3.49}, cat:"Dry Store"},
+  panko:{n:"Panko Breadcrumb (1kg)",         q:1000,  u:"g",    p:{TP:5.95,B:4.69,FEO:1.50}, cat:"Dry Store"},
+  puff_pastry:{n:"Puff Pastry (1.5kg)",            q:1500,  u:"g",    p:{TP:6.45,S:3.85,B:5.25}, cat:"Bakery"},
+  vermicelli:{n:"Vermicelli (1kg)",               q:1000,  u:"g",    p:{S:8.98,FEO:2.50}, cat:"Dry Store"},
+  tempura_f:{n:"Tempura Batter Mix GF (1kg)",    q:1000,  u:"g",    p:{TP:5.50,S:2.37,B:1.99,FEO:5.50}, cat:"Dry Store"},
+  focaccia:{n:"Focaccia (3.8kg)",               q:3800,  u:"g",    p:{TP:33.00,S:25.41}, cat:"Bakery"},
+  cornflour:{n:"Cornflour (3.5kg)",              q:3500,  u:"g",    p:{TP:6.94,S:11.15,B:9.99}, cat:"Dry Store"},
+  arepa_flour:{n:"Arepa Flour (1kg)",              q:1000,  u:"g",    p:{FEO:2.30}, cat:"Dry Store"},
   // SPICES & SEASONINGS
-  table_salt:   {n:"Table/Sea Salt (1.4kg)",         q:1400,  u:"g",    p:{TP:12.50,S:12.50,B:13.99}},
-  sm_paprika:   {n:"Smoked Paprika (1kg)",           q:1000,  u:"g",    p:{TP:9.20,S:9.73,B:11.00,AC:9.23}},
-  garlic_pow:   {n:"Garlic Powder (700g)",           q:700,   u:"g",    p:{TP:3.30,S:22.74,B:8.49,AC:6.98}},
-  blk_pepper:   {n:"Cracked Black Pepper (1kg)",     q:1000,  u:"g",    p:{TP:14.49,S:24.26,B:10.00,AC:12.69}},
-  dry_thyme:    {n:"Dried Thyme (500g)",             q:500,   u:"g",    p:{TP:6.99,S:9.48,B:10.00}},
-  fresh_thyme:  {n:"Fresh Thyme Bunch (~30g)",       q:30,    u:"g",    p:{TP:1.49,S:1.32,B:1.59,AC:1.50}},
-  rosemary:     {n:"Rosemary Bunch (~30g)",          q:30,    u:"g",    p:{TP:1.49,S:1.25,B:1.59,AC:1.50}},
-  five_spice:   {n:"Chinese Five Spice (600g)",      q:600,   u:"g",    p:{TP:6.75,S:8.97,B:16.35}},
-  jerk_seas:    {n:"Jerk Seasoning (1kg)",           q:1000,  u:"g",    p:{TP:10.65,B:10.75,AC:14.90}},
-  onion_pow:    {n:"Onion Powder (650g)",            q:650,   u:"g",    p:{TP:4.50,S:6.73,B:7.98,AC:4.86}},
-  baking_pow:   {n:"Baking Powder (800g)",           q:800,   u:"g",    p:{TP:3.99,S:5.08,B:6.21}},
-  bay_leaves:   {n:"Bay Leaves (150g)",              q:150,   u:"g",    p:{TP:2.99,S:14.02,B:14.95,AC:7.17}},
-  dark_choc:    {n:"Dark Chocolate Callets (2.5kg)", q:2500,  u:"g",    p:{TP:30.99,S:32.68,B:31.99}},
-  cinnamon:     {n:"Cinnamon Powder (700g)",         q:700,   u:"g",    p:{TP:9.00,S:9.18,B:8.96,AC:6.11}},
-  pk_basar:     {n:"Pakistani Basar (500g)",         q:500,   u:"g",    p:{AC:2.69}},
-  chk_stock:    {n:"Chicken Stock Powder (800g)",    q:800,   u:"g",    p:{TP:22.99,S:19.62,B:13.29,AC:5.99}},
-  w_sesame:     {n:"White Sesame Seeds (1kg)",       q:1000,  u:"g",    p:{TP:6.45,S:12.97,B:15.08,AC:6.48}},
-  b_sesame:     {n:"Black Sesame Seeds (1kg)",       q:1000,  u:"g",    p:{TP:10.50,S:14.25,B:14.53,AC:5.29}},
-  gran_sugar:   {n:"Granulated Sugar (2kg)",         q:2000,  u:"g",    p:{TP:1.24,S:3.16,B:2.49}},
+  table_salt:{n:"Table/Sea Salt (1.4kg)",         q:1400,  u:"g",    p:{TP:12.50,S:12.50,B:13.99}, cat:"Dry Spices"},
+  sm_paprika:{n:"Smoked Paprika (1kg)",           q:1000,  u:"g",    p:{TP:9.20,S:9.73,B:11.00,AC:9.23}, cat:"Dry Spices"},
+  garlic_pow:{n:"Garlic Powder (700g)",           q:700,   u:"g",    p:{TP:3.30,S:22.74,B:8.49,AC:6.98}, cat:"Dry Spices"},
+  blk_pepper:{n:"Cracked Black Pepper (1kg)",     q:1000,  u:"g",    p:{TP:14.49,S:24.26,B:10.00,AC:12.69}, cat:"Dry Spices"},
+  dry_thyme:{n:"Dried Thyme (500g)",             q:500,   u:"g",    p:{TP:6.99,S:9.48,B:10.00}, cat:"Dry Spices"},
+  fresh_thyme:{n:"Fresh Thyme Bunch (~30g)",       q:30,    u:"g",    p:{TP:1.49,S:1.32,B:1.59,AC:1.50}, cat:"Herbs"},
+  rosemary:{n:"Rosemary Bunch (~30g)",          q:30,    u:"g",    p:{TP:1.49,S:1.25,B:1.59,AC:1.50}, cat:"Herbs"},
+  five_spice:{n:"Chinese Five Spice (600g)",      q:600,   u:"g",    p:{TP:6.75,S:8.97,B:16.35}, cat:"Dry Spices"},
+  jerk_seas:{n:"Jerk Seasoning (1kg)",           q:1000,  u:"g",    p:{TP:10.65,B:10.75,AC:14.90}, cat:"Dry Spices"},
+  onion_pow:{n:"Onion Powder (650g)",            q:650,   u:"g",    p:{TP:4.50,S:6.73,B:7.98,AC:4.86}, cat:"Dry Spices"},
+  baking_pow:{n:"Baking Powder (800g)",           q:800,   u:"g",    p:{TP:3.99,S:5.08,B:6.21}, cat:"Dry Spices"},
+  bay_leaves:{n:"Bay Leaves (150g)",              q:150,   u:"g",    p:{TP:2.99,S:14.02,B:14.95,AC:7.17}, cat:"Dry Spices"},
+  dark_choc:{n:"Dark Chocolate Callets (2.5kg)", q:2500,  u:"g",    p:{TP:30.99,S:32.68,B:31.99}, cat:"Dry Store"},
+  cinnamon:{n:"Cinnamon Powder (700g)",         q:700,   u:"g",    p:{TP:9.00,S:9.18,B:8.96,AC:6.11}, cat:"Dry Spices"},
+  pk_basar:{n:"Pakistani Basar (500g)",         q:500,   u:"g",    p:{AC:2.69}, cat:"Dry Spices"},
+  chk_stock:{n:"Chicken Stock Powder (800g)",    q:800,   u:"g",    p:{TP:22.99,S:19.62,B:13.29,AC:5.99}, cat:"Dry Spices"},
+  w_sesame:{n:"White Sesame Seeds (1kg)",       q:1000,  u:"g",    p:{TP:6.45,S:12.97,B:15.08,AC:6.48}, cat:"Dry Spices"},
+  b_sesame:{n:"Black Sesame Seeds (1kg)",       q:1000,  u:"g",    p:{TP:10.50,S:14.25,B:14.53,AC:5.29}, cat:"Dry Spices"},
+  gran_sugar:{n:"Granulated Sugar (2kg)",         q:2000,  u:"g",    p:{TP:1.24,S:3.16,B:2.49}, cat:"Dry Store"},
   // EXTRAS
-  van_ice:      {n:"Madagascan Vanilla Ice Cream (5L)",q:5000, u:"g",    p:{TP:19.99}},
+  van_ice:{n:"Madagascan Vanilla Ice Cream (5L)",q:5000, u:"g",    p:{TP:19.99}, cat:"Frozen"},
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -370,6 +370,7 @@ export default function ChamoStock() {
   const [expanded, setExpanded]     = useState(null);
   const [covers, setCovers]         = useState({});
   const [ingSearch, setIngSearch]   = useState("");
+  const [supCatFilter, setSupCatFilter] = useState("All");
   const [batchSearch, setBatchSearch] = useState("");
   const [sortCol, setSortCol]       = useState("name");
   const [sortDir, setSortDir]       = useState(1);
@@ -392,15 +393,16 @@ export default function ChamoStock() {
       const bs = bestSupplier(id);
       const prices = Object.entries(ing.p).map(([s,p]) => ({s, label:SL[s]||s, p})).sort((a,b)=>a.p-b.p);
       const saving = prices.length > 1 ? prices[prices.length-1].p - prices[0].p : 0;
-      return { id, name: ing.n, unit: ing.u, qty: ing.q, best: bs, prices, saving };
+      return { id, name: ing.n, unit: ing.u, qty: ing.q, cat: ing.cat||"", best: bs, prices, saving };
     }).filter(i => Object.keys(i.prices).length > 0)
       .filter(i => !ingSearch || i.name.toLowerCase().includes(ingSearch.toLowerCase()))
+      .filter(i => supCatFilter === "All" || i.cat === supCatFilter)
       .sort((a,b) => {
         if (sortCol === "saving") return sortDir * (b.saving - a.saving);
         if (sortCol === "best")   return sortDir * ((a.best?.[1]||999) - (b.best?.[1]||999));
         return sortDir * a.name.localeCompare(b.name);
       });
-  }, [ingSearch, sortCol, sortDir]);
+  }, [ingSearch, supCatFilter, sortCol, sortDir]);
 
   const batchList = useMemo(() => {
     return Object.entries(BATCHES).map(([id,bt]) => {
@@ -566,6 +568,16 @@ export default function ChamoStock() {
                   style={{background:"#1a1a1a",border:"1px solid #2a2a2a",borderRadius:8,padding:"8px 12px",color:"#e8e2d9",fontSize:13,width: isMobile ? "100%" : 220}}/>
               </div>
               {!isMobile && <p style={{fontSize:13, color:"#666", margin:0}}>{Object.keys(RAW).length} ingredients • always buy from the highlighted supplier to minimise cost</p>}
+              <div style={{display:"flex", gap:6, flexWrap: isMobile ? "nowrap" : "wrap", overflowX: isMobile ? "auto" : "visible", paddingBottom: isMobile ? 4 : 0, WebkitOverflowScrolling:"touch", marginTop:12}}>
+                {['All', 'Herbs', 'Fruit & Veg', 'Butchery', 'Dairy', 'Frozen', 'Bakery', 'Dry Store', 'Dry Spices', 'Drinks'].map(c => (
+                  <button key={c} onClick={() => setSupCatFilter(c)} style={{
+                    padding:"5px 12px", borderRadius:20, border:"1px solid", cursor:"pointer", fontSize:12, fontWeight:600, whiteSpace:"nowrap",
+                    background: supCatFilter===c ? "#f5a623" : "transparent",
+                    borderColor: supCatFilter===c ? "#f5a623" : "#333",
+                    color: supCatFilter===c ? "#0e0e0e" : "#888"
+                  }}>{c}</button>
+                ))}
+              </div>
             </div>
 
             <div style={{background:"#1a1a1a", borderRadius:12, border:"1px solid #252525", overflow:"hidden"}}>
