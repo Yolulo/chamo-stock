@@ -113,7 +113,68 @@ const RAW = {
   b_sesame:{n:"Black Sesame Seeds (1kg)",       q:1000,  u:"g",    p:{TP:10.50,S:14.25,B:14.53,AC:5.29}, cat:"Dry Spices"},
   gran_sugar:{n:"Granulated Sugar (2kg)",         q:2000,  u:"g",    p:{TP:1.24,S:3.16,B:2.49}, cat:"Dry Store"},
   // EXTRAS
-  van_ice:{n:"Madagascan Vanilla Ice Cream (5L)",q:5000, u:"g",    p:{TP:19.99}, cat:"Frozen"},
+  van_ice:{n:"Madagascan Vanilla Ice Cream (5L)",q:5000, u:"g",    p:{TP:19.99,S:15.12,B:14.39}, cat:"Frozen"},
+  // PRODUCE - MISSING
+  lemons:       {n:"Lemons Large (x5)",              q:5,     u:"ea",   p:{TP:1.95,S:1.31,B:1.96,AC:4.99}, cat:"Fruit & Veg"},
+  vine_tom:     {n:"Vine Tomatoes (1kg)",             q:1000,  u:"g",    p:{TP:5.99,S:2.86,B:3.38}, cat:"Fruit & Veg"},
+  red_onion_ea: {n:"Red Onion (each)",                q:1,     u:"ea",   p:{TP:0.39}, cat:"Fruit & Veg"},
+  // DAIRY - MISSING
+  grana_padana: {n:"Grana Padano Grated (1kg)",       q:1000,  u:"g",    p:{TP:17.99,S:24.04,B:24.58}, cat:"Dairy"},
+  cheddar_mild: {n:"Cheddar Grated Mild (2kg)",       q:2000,  u:"g",    p:{TP:12.75,S:13.78,B:12.49}, cat:"Dairy"},
+  butter_u:     {n:"Butter Unsalted (250g)",          q:250,   u:"g",    p:{TP:2.20,S:2.42,B:1.79,AC:1.79}, cat:"Dairy"},
+  // FROZEN - MISSING
+  rosti_bites:  {n:"Aviko Rosti Bites (2.5kg)",       q:2500,  u:"g",    p:{TP:6.99,S:4.93,B:5.22,AFS:5.49}, cat:"Frozen"},
+  sweet_waffle: {n:"Belgium Sweet Waffles (42pk)",    q:42,    u:"ea",   p:{TP:17.95,S:18.35}, cat:"Frozen"},
+  thin_fries:   {n:"Extra Thin Fries (2.5kg)",        q:2500,  u:"g",    p:{S:16.86,B:12.99,AFS:15.49}, cat:"Frozen"},
+  pangasius:    {n:"Pangasius Fillet (1kg)",           q:1000,  u:"g",    p:{AC:2.50,FEO:3.75}, cat:"Frozen"},
+  brownie_tb:   {n:"Brownie Traybake",                q:1,     u:"ea",   p:{S:22.24,B:19.99}, cat:"Frozen"},
+  // DRY STORE - MISSING
+  veg_oil:      {n:"Vegetable Oil (20L)",             q:20000, u:"ml",   p:{TP:31.99,S:31.06,B:29.49,AFS:27.49}, cat:"Dry Store"},
+  choc_syrup:   {n:"Chocolate Syrup (1kg)",           q:1000,  u:"g",    p:{TP:5.00,S:4.98,B:4.49}, cat:"Dry Store"},
+  biscoff_1kg:  {n:"Lotus Biscoff Sauce (1kg)",       q:1000,  u:"g",    p:{TP:12.00,B:9.29}, cat:"Dry Store"},
+  biscoff_8kg:  {n:"Lotus Biscoff Sauce (8kg)",       q:8000,  u:"g",    p:{S:69.83,B:64.59}, cat:"Dry Store"},
+  chilli_honey: {n:"Chilli Fusion Honey (680g)",      q:680,   u:"g",    p:{TP:7.99,S:3.95,B:4.99}, cat:"Dry Store"},
+  br_sugar:     {n:"Brown Rough Cut Sugar (1kg)",     q:1000,  u:"g",    p:{TP:3.99,B:5.49}, cat:"Dry Store"},
+  wh_sugar:     {n:"White Rough Cut Sugar (1kg)",     q:1000,  u:"g",    p:{TP:3.99,B:5.49}, cat:"Dry Store"},
+  // DRY SPICES - MISSING
+  chip_spice:   {n:"American Chip Spice Classic",     q:1000,  u:"g",    p:{AFS:8.99}, cat:"Dry Spices"},
+  // BAKERY - MISSING
+  tortilla_6s:  {n:'Corn Tortilla Soft 6" (144s)',    q:144,   u:"ea",   p:{TP:14.99}, cat:"Bakery"},
+  // DRINKS
+  coke:         {n:"Coke Cans (24x330ml)",            q:24,    u:"ea",   p:{S:15.29,B:12.60,AFS:8.99}, cat:"Drinks"},
+  coke_zero:    {n:"Coke Zero Cans (24x330ml)",       q:24,    u:"ea",   p:{S:12.91,B:10.20,AFS:8.99}, cat:"Drinks"},
+  diet_coke:    {n:"Diet Coke Cans (24x330ml)",       q:24,    u:"ea",   p:{S:12.79,B:10.20,AFS:9.29}, cat:"Drinks"},
+  fanta_lem:    {n:"Fanta Lemon Cans (24x330ml)",     q:24,    u:"ea",   p:{S:14.69,B:10.20,AFS:9.49}, cat:"Drinks"},
+  fanta_org:    {n:"Fanta Orange Cans (24x330ml)",    q:24,    u:"ea",   p:{S:14.69,B:10.20,AFS:9.99}, cat:"Drinks"},
+  water_still:  {n:"Mineral Water Still (24x500ml)",  q:24,    u:"ea",   p:{S:6.90,B:3.59,AFS:2.99}, cat:"Drinks"},
+  water_hrg:    {n:"Harrogate Still Water (24x330ml)",q:24,    u:"ea",   p:{S:12.99,B:14.99,AFS:11.99}, cat:"Drinks"},
+  water_spark:  {n:"Sparkling Water (24x330ml)",      q:24,    u:"ea",   p:{S:14.74,B:13.07}, cat:"Drinks"},
+  // CLEANING
+  centrefeed_w: {n:"White Centrefeed Roll (x6)",      q:6,     u:"ea",   p:{S:28.64,B:12.99,AC:5.99}, cat:"Cleaning"},
+  centrefeed_b: {n:"Blue Centrefeed Roll (x6)",       q:6,     u:"ea",   p:{S:8.73,B:5.99,AC:5.99}, cat:"Cleaning"},
+  wash_liquid:  {n:"Washing Up Liquid (10L)",         q:1,     u:"ea",   p:{S:9.11,B:10.20,AFS:4.29}, cat:"Cleaning"},
+  degreaser:    {n:"Heavy Duty Degreaser (5L)",       q:1,     u:"ea",   p:{S:17.25,B:16.55,AFS:5.00}, cat:"Cleaning"},
+  oven_clean:   {n:"Oven & Grill Cleaner RTU (1L)",   q:1,     u:"ea",   p:{S:2.72,B:3.95,AFS:1.00}, cat:"Cleaning"},
+  microfibre:   {n:"Micro Fibre Cloths (10pk)",       q:1,     u:"ea",   p:{S:4.82,B:11.98}, cat:"Cleaning"},
+  mop:          {n:"Socket Mop Yellow",               q:1,     u:"ea",   p:{S:3.23,B:5.29}, cat:"Cleaning"},
+  antibac:      {n:"Antibac Surface Cleanser (6x1L)", q:1,     u:"ea",   p:{S:18.21,B:11.49}, cat:"Cleaning"},
+  toilet_clean: {n:"Toilet Cleaner (12x750ml)",       q:1,     u:"ea",   p:{S:19.94,B:29.39}, cat:"Cleaning"},
+  scourers:     {n:"Stainless Steel Scourers (10pk)", q:1,     u:"ea",   p:{S:3.04,B:7.99}, cat:"Cleaning"},
+  gloves_blk:   {n:"Black Nitrile Gloves (10x100)",   q:1,     u:"ea",   p:{AFS:37.99}, cat:"Cleaning"},
+  gloves_blu:   {n:"Blue Nitrile Gloves (10x100)",    q:1,     u:"ea",   p:{S:23.00,B:35.99,AFS:36.99}, cat:"Cleaning"},
+  // PACKAGING
+  bin_bags:     {n:"Bin Bags 90L (200pk)",            q:1,     u:"ea",   p:{S:14.96,B:22.99,AFS:9.99}, cat:"Packaging"},
+  greaseproof:  {n:"Greaseproof Paper (480pk)",       q:1,     u:"ea",   p:{S:5.90,B:27.59}, cat:"Packaging"},
+  foil_roll:    {n:"Aluminium Foil Roll 450mm (6x75m)",q:1,    u:"ea",   p:{S:12.23,B:9.99,AFS:7.52}, cat:"Packaging"},
+  carrier_bags: {n:"Brown Carrier Bags (225pk)",      q:1,     u:"ea",   p:{S:21.59,AFS:7.99}, cat:"Packaging"},
+  food_boxes:   {n:"Kraft Food Boxes No6 (200pk)",    q:1,     u:"ea",   p:{S:48.44,AFS:13.99}, cat:"Packaging"},
+  cups_2oz:     {n:"Clear Cups & Lids 2oz (800pk)",   q:1,     u:"ea",   p:{S:51.74,AFS:25.99}, cat:"Packaging"},
+  cups_4oz:     {n:"Clear Cups & Lids 4oz (800pk)",   q:1,     u:"ea",   p:{S:55.64,AFS:29.99}, cat:"Packaging"},
+  kraft_tray:   {n:"Kraft Tapered Tray (500pk)",      q:1,     u:"ea",   p:{Envior:37.43}, cat:"Packaging"},
+  serviettes:   {n:"Serviettes 1-Ply 30cm (500pk)",   q:1,     u:"ea",   p:{S:8.49,AFS:2.00}, cat:"Packaging"},
+  order_pads:   {n:"Kitchen Order Pads (20pk)",       q:1,     u:"ea",   p:{S:8.99,B:10.69,AFS:5.79}, cat:"Packaging"},
+  food_bowl:    {n:"Kraft Food Bowl 16oz (x50)",      q:1,     u:"ea",   p:{S:29.07,B:50.39,AFS:23.00}, cat:"Packaging"},
+  dow_labels:   {n:"DOW Label Refills 25mm",          q:1,     u:"ea",   p:{S:18.91,B:20.99}, cat:"Packaging"},
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -569,7 +630,7 @@ export default function ChamoStock() {
               </div>
               {!isMobile && <p style={{fontSize:13, color:"#666", margin:0}}>{Object.keys(RAW).length} ingredients • always buy from the highlighted supplier to minimise cost</p>}
               <div style={{display:"flex", gap:6, flexWrap: isMobile ? "nowrap" : "wrap", overflowX: isMobile ? "auto" : "visible", paddingBottom: isMobile ? 4 : 0, WebkitOverflowScrolling:"touch", marginTop:12}}>
-                {['All', 'Herbs', 'Fruit & Veg', 'Butchery', 'Dairy', 'Frozen', 'Bakery', 'Dry Store', 'Dry Spices', 'Drinks'].map(c => (
+                {['All', 'Herbs', 'Fruit & Veg', 'Butchery', 'Dairy', 'Frozen', 'Bakery', 'Dry Store', 'Dry Spices', 'Drinks', 'Cleaning', 'Packaging'].map(c => (
                   <button key={c} onClick={() => setSupCatFilter(c)} style={{
                     padding:"5px 12px", borderRadius:20, border:"1px solid", cursor:"pointer", fontSize:12, fontWeight:600, whiteSpace:"nowrap",
                     background: supCatFilter===c ? "#f5a623" : "transparent",
