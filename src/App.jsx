@@ -436,6 +436,11 @@ export default function ChamoStock() {
   const [batchSearch, setBatchSearch] = useState("");
   const [sortCol, setSortCol]       = useState("name");
   const [sortDir, setSortDir]       = useState(1);
+  const [orderItems, setOrderItems] = useState(() => {
+    try { const s = localStorage.getItem("chamo_order"); return s ? JSON.parse(s) : {}; } catch { return {}; }
+  });
+  const [orderSearch, setOrderSearch] = useState("");
+  const [orderSearchResults, setOrderSearchResults] = useState([]);
 
   const dishData = useMemo(() => Object.entries(DISHES).map(([id]) => ({id, ...calcDish(id)})), []);
 
@@ -485,6 +490,10 @@ export default function ChamoStock() {
   const avgDishCost = dishData.reduce((s,d) => s+(d.total||0), 0) / totalDishes;
   const missingCount = dishData.filter(d => d.hasNull).length;
 
+  useEffect(() => {
+    try { localStorage.setItem("chamo_order", JSON.stringify(orderItems)); } catch {}
+  }, [orderItems]);
+
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 768);
   useEffect(() => {
     const fn = () => setIsMobile(window.innerWidth < 768);
@@ -492,7 +501,7 @@ export default function ChamoStock() {
     return () => window.removeEventListener("resize", fn);
   }, []);
 
-  const tabs = [["costs","🍽","Dish Costs"],["supplier","🛒","Supplier"],["batch","📋","Batches"],["planner","📅","Planner"]];
+  const tabs = [["costs","🍽","Dish Costs"],["supplier","🛒","Supplier"],["batch","📋","Batches"],["planner","📅","Planner"],["order","📦","Order"]];
 
   return (
     <div style={{fontFamily:"'DM Sans', system-ui, sans-serif", background:"#0e0e0e", minHeight:"100vh", color:"#e8e2d9", paddingBottom: isMobile ? 68 : 0}}>
@@ -879,6 +888,180 @@ export default function ChamoStock() {
             )}
           </div>
         )}
+
+        {/* ── ORDER BREAKDOWN ── */}
+        {tab === "order" && (() => {
+          const allRaw = Object.entries(RAW).map(([id, ing]) => ({id, ...ing}));
+          const filtered = orderSearch.length > 1
+            ? allRaw.filter(i => i.n.toLowerCase().includes(orderSearch.toLowerCase()))
+            : [];
+
+          const addItem = (id) => {
+            setOrderItems(prev => ({...prev, [id]: {qty: prev[id]?.qty || 1, sup: null}}));
+            setOrderSearch("");
+          };
+          const removeItem = (id) => setOrderItems(prev => { const n={...prev}; delete n[id]; return n; });
+          const setQty = (id, qty) => setOrderItems(prev => ({...prev, [id]: {...prev[id], qty}}));
+          const setSup = (id, sup) => setOrderItems(prev => ({...prev, [id]: {...prev[id], sup}}));
+
+          // Build order breakdown grouped by best supplier
+          const orderLines = Object.entries(orderItems).map(([id, {qty, sup}]) => {
+            const ing = RAW[id];
+            if (!ing) return null;
+            const prices = ing.p || {};
+            const bestSup = sup || (Object.keys(prices).length ? Object.keys(prices).reduce((a,b) => prices[a]/ing.q < prices[b]/ing.q ? a : b) : null);
+            const pricePerPack = bestSup ? prices[bestSup] : null;
+            const ppu = pricePerPack ? pricePerPack / ing.q : null;
+            const totalQty = qty * ing.q;
+            const totalCost = pricePerPack ? qty * pricePerPack : null;
+            return {id, name: ing.n, qty, unit: ing.u, packSize: ing.q, bestSup, prices, totalCost, totalQty, ppu};
+          }).filter(Boolean);
+
+          // Group by supplier
+          const bySupplier = {};
+          orderLines.forEach(line => {
+            const s = line.bestSup || "No Price";
+            if (!bySupplier[s]) bySupplier[s] = {items:[], total:0};
+            bySupplier[s].items.push(line);
+            if (line.totalCost) bySupplier[s].total += line.totalCost;
+          });
+
+          const supOrder = ["TP","S","B","CM","WF","AC","AFS","FEO","Envior","No Price"];
+          const sortedSuppliers = Object.keys(bySupplier).sort((a,b) => supOrder.indexOf(a) - supOrder.indexOf(b));
+          const grandTotal = orderLines.reduce((s,l) => s + (l.totalCost||0), 0);
+          const bookerTotal = bySupplier["B"]?.total || 0;
+
+          const supColors = {TP:"#4caf50", S:"#2196f3", B:"#ff9800", CM:"#e91e63", WF:"#9c27b0", AC:"#00bcd4", AFS:"#ff5722", FEO:"#8bc34a", Envior:"#607d8b"};
+
+          return (
+            <div>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:16, flexWrap:"wrap", gap:10}}>
+                <div>
+                  <h2 style={{fontSize: isMobile ? 17 : 20, fontWeight:800, marginBottom:4}}>Order Breakdown</h2>
+                  {!isMobile && <p style={{fontSize:13, color:"#666", margin:0}}>Add items and quantities — system assigns each to the cheapest supplier automatically</p>}
+                </div>
+                {grandTotal > 0 && (
+                  <div style={{fontSize: isMobile ? 16 : 20, fontWeight:800, color:"#f5a623"}}>Total: £{grandTotal.toFixed(2)}</div>
+                )}
+              </div>
+
+              {/* Search to add items */}
+              <div style={{position:"relative", marginBottom:20}}>
+                <input
+                  value={orderSearch}
+                  onChange={e => setOrderSearch(e.target.value)}
+                  placeholder="Search ingredient to add…"
+                  style={{width:"100%", background:"#1a1a1a", border:"1px solid #333", borderRadius:10, padding:"10px 14px", color:"#e8e2d9", fontSize:14, boxSizing:"border-box"}}
+                />
+                {filtered.length > 0 && (
+                  <div style={{position:"absolute", top:"100%", left:0, right:0, background:"#1e1e1e", border:"1px solid #333", borderRadius:10, zIndex:50, maxHeight:220, overflowY:"auto", marginTop:4}}>
+                    {filtered.slice(0,10).map(ing => (
+                      <div key={ing.id} onClick={() => addItem(ing.id)}
+                        style={{padding:"10px 14px", cursor:"pointer", fontSize:13, borderBottom:"1px solid #252525", display:"flex", justifyContent:"space-between", alignItems:"center"}}
+                        onMouseEnter={e => e.currentTarget.style.background="#252525"}
+                        onMouseLeave={e => e.currentTarget.style.background="transparent"}>
+                        <span>{ing.n}</span>
+                        <span style={{fontSize:11, color:"#555"}}>{ing.cat}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {orderLines.length === 0 && (
+                <div style={{textAlign:"center", padding:"60px 0", color:"#333", fontSize:14}}>
+                  Search above to add ingredients to your order ↑
+                </div>
+              )}
+
+              {orderLines.length > 0 && (
+                <div style={{display:"grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap:24}}>
+
+                  {/* LEFT: Item list */}
+                  <div>
+                    <div style={{fontSize:13, fontWeight:700, color:"#666", textTransform:"uppercase", letterSpacing:1, marginBottom:12}}>Items ({orderLines.length})</div>
+                    <div style={{display:"flex", flexDirection:"column", gap:8}}>
+                      {orderLines.map(line => {
+                        const supList = Object.keys(line.prices);
+                        return (
+                          <div key={line.id} style={{background:"#1a1a1a", borderRadius:10, border:"1px solid #252525", padding:"12px 14px"}}>
+                            <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8}}>
+                              <div style={{fontSize:13, fontWeight:600, flex:1, marginRight:8}}>{line.name}</div>
+                              <button onClick={() => removeItem(line.id)} style={{background:"transparent", border:"none", color:"#555", cursor:"pointer", fontSize:16, padding:0, lineHeight:1}}>×</button>
+                            </div>
+                            <div style={{display:"flex", gap:8, alignItems:"center", flexWrap:"wrap"}}>
+                              <div style={{display:"flex", alignItems:"center", gap:6, background:"#141414", borderRadius:8, padding:"4px 8px"}}>
+                                <button onClick={() => setQty(line.id, Math.max(1, line.qty-1))} style={{background:"transparent", border:"none", color:"#f5a623", cursor:"pointer", fontSize:16, padding:"0 4px"}}>−</button>
+                                <span style={{fontSize:14, fontWeight:700, minWidth:24, textAlign:"center"}}>{line.qty}</span>
+                                <button onClick={() => setQty(line.id, line.qty+1)} style={{background:"transparent", border:"none", color:"#f5a623", cursor:"pointer", fontSize:16, padding:"0 4px"}}>+</button>
+                                <span style={{fontSize:11, color:"#555"}}>packs</span>
+                              </div>
+                              <select value={line.bestSup||""} onChange={e => setSup(line.id, e.target.value||null)}
+                                style={{background:"#141414", border:"1px solid #333", borderRadius:8, padding:"5px 8px", color:"#e8e2d9", fontSize:12}}>
+                                {supList.map(s => (
+                                  <option key={s} value={s}>{SL[s]||s} — £{line.prices[s].toFixed(2)}</option>
+                                ))}
+                              </select>
+                              {line.totalCost != null && (
+                                <span style={{fontSize:13, fontWeight:700, color:"#f5a623", marginLeft:"auto"}}>£{line.totalCost.toFixed(2)}</span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <button onClick={() => setOrderItems({})} style={{marginTop:12, background:"transparent", border:"1px solid #2a2a2a", borderRadius:8, padding:"6px 16px", color:"#666", fontSize:12, cursor:"pointer"}}>
+                      Clear All
+                    </button>
+                  </div>
+
+                  {/* RIGHT: Supplier breakdown */}
+                  <div>
+                    <div style={{fontSize:13, fontWeight:700, color:"#666", textTransform:"uppercase", letterSpacing:1, marginBottom:12}}>Order By Supplier</div>
+                    <div style={{display:"flex", flexDirection:"column", gap:12}}>
+                      {sortedSuppliers.map(sup => {
+                        const group = bySupplier[sup];
+                        const col = supColors[sup] || "#888";
+                        const isBooker = sup === "B";
+                        const underMin = isBooker && group.total < 150;
+                        return (
+                          <div key={sup} style={{background:"#1a1a1a", borderRadius:10, border:`1px solid ${underMin ? "#ff5722" : "#252525"}`, overflow:"hidden"}}>
+                            <div style={{background:"#141414", padding:"10px 14px", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                              <div style={{display:"flex", alignItems:"center", gap:8}}>
+                                <div style={{width:10, height:10, borderRadius:"50%", background:col}}/>
+                                <span style={{fontWeight:700, fontSize:14}}>{SL[sup]||sup}</span>
+                                <span style={{fontSize:11, color:"#555"}}>{group.items.length} item{group.items.length>1?"s":""}</span>
+                              </div>
+                              <div style={{display:"flex", alignItems:"center", gap:8}}>
+                                {underMin && <span style={{fontSize:10, color:"#ff5722", fontWeight:700, background:"#ff572215", padding:"2px 6px", borderRadius:4}}>UNDER £150 MIN</span>}
+                                <span style={{fontWeight:800, color:"#f5a623"}}>£{group.total.toFixed(2)}</span>
+                              </div>
+                            </div>
+                            {group.items.map((item, i) => (
+                              <div key={item.id} style={{padding:"8px 14px", borderTop:"1px solid #1e1e1e", display:"flex", justifyContent:"space-between", alignItems:"center", background: i%2===0?"transparent":"#161616"}}>
+                                <div>
+                                  <div style={{fontSize:12, color:"#e8e2d9"}}>{item.name}</div>
+                                  <div style={{fontSize:11, color:"#555"}}>{item.qty} × {item.unit === "ea" ? `${item.packSize} pack` : `${item.packSize}${item.unit}`}</div>
+                                </div>
+                                <span style={{fontSize:13, fontWeight:600, color:"#e8e2d9"}}>{item.totalCost != null ? `£${item.totalCost.toFixed(2)}` : "—"}</span>
+                              </div>
+                            ))}
+                            {isBooker && (
+                              <div style={{padding:"8px 14px", borderTop:"1px solid #252525", fontSize:11, color: underMin ? "#ff5722" : "#4caf50"}}>
+                                {underMin ? `⚠ Add £${(150 - group.total).toFixed(2)} more to hit the £150 minimum` : "✓ Above £150 minimum order"}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
+
       </div>
 
       {/* MOBILE BOTTOM NAV */}
